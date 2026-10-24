@@ -1,0 +1,54 @@
+/**
+ * Variables del Tema Institucional - Clínica Vida Salud
+ * Sistemas de Información 1 - UAGRM
+ * Paleta Verde Hospital / Salud
+ */
+
+:root {
+    /* Paleta Institucional Verde Hospital */
+    --color-primario: #1B4332;          /* Verde Bosque Médico */
+    --color-primario-oscuro: #143225;
+    --color-acento: #2D6A4F;            /* Verde Esmeralda Acento */
+    --color-acento-hover: #245740;
+    --color-acento-claro: #40916C;
+    
+    /* Fondos */
+    --color-fondo-base: #FFFFFF;        /* Blanco Clínico */
+    --color-fondo-secundario: #F4F9F5;  /* Verde Pastel Tenue */
+    --color-fondo-tarjeta: #FFFFFF;
+    --color-fondo-sidebar: #1B4332;
+    --color-sidebar-activo: #2D6A4F;
+    --color-sidebar-hover: rgba(255, 255, 255, 0.08);
+
+    /* Alertas y Estados */
+    --color-peligro: #DC2626;           /* Rojo Alerta Institucional */
+    --color-peligro-fondo: #FEF2F2;
+    --color-peligro-borde: #FCA5A5;
+    
+    --color-exito: #16A34A;
+    --color-exito-fondo: #D8F3DC;        /* Menta Suave */
+    --color-exito-borde: #86EFAC;
+
+    --color-advertencia: #D97706;
+    --color-advertencia-fondo: #FEF3C7;
+    --color-advertencia-borde: #FDE68A;
+
+    --color-info: #0284C7;
+    --color-info-fondo: #E0F2FE;
+    --color-info-borde: #BAE6FD;
+
+    /* Tipografía y Neutros */
+    --color-texto: #1E293B;             /* Grafito Oscuro */
+    --color-texto-muted: #64748B;       /* Gris Plomo */
+    --color-texto-claro: #F8FAFC;
+    --color-borde: #E2E8F0;             /* Gris Neutro */
+    --color-borde-hover: #CBD5E1;
+    --color-borde-focus: #2D6A4F;
+
+    /* Dimensiones de Maquetación */
+    --ancho-sidebar: 250px;
+    --alto-topbar: 64px;
+    --radio-borde: 8px;
+    --sombra-tarjeta: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    --sombra-modal: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}

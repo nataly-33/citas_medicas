@@ -5,7 +5,7 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
 require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
 require_once dirname(__DIR__, 2) . '/src/core/Conexion.php';
@@ -251,7 +251,7 @@ try {
 $titulo_pagina = 'Panel de Control';
 $titulo_seccion = 'Panel de Control';
 $script_modulo = 'citas.js';
-require_once dirname(__DIR__) . '/parciales/encabezado.php';
+require_once dirname(__DIR__) . '/common/encabezado.php';
 ?>
 
 <!-- ============================================================
@@ -473,7 +473,7 @@ require_once dirname(__DIR__) . '/citas/modal_agendar.php';
 require_once dirname(__DIR__) . '/citas/modal_detalle.php';
 require_once dirname(__DIR__) . '/pacientes/modal_ficha_clinica.php';
 require_once dirname(__DIR__) . '/pacientes/modal_historial.php';
-require_once dirname(__DIR__) . '/parciales/pie.php';
+require_once dirname(__DIR__) . '/common/pie.php';
 ?>
 
 <script>

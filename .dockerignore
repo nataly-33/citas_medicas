@@ -1,0 +1,9 @@
+.git
+.gitignore
+.gemini
+*.log
+almacenamiento/logs/*.log
+*.docx
+*.pdf
+*.zip
+*.tar.gz

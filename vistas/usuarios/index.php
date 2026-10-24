@@ -4,7 +4,7 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
 require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
 require_once dirname(__DIR__, 2) . '/src/controladores/UsuarioControlador.php';
@@ -74,7 +74,7 @@ $rolesCatalogo = array_values(array_filter($usuarioControlador->obtenerRoles(), 
 
 $titulo_pagina = 'Gestión de Usuarios';
 $titulo_seccion = 'Gestión de Usuarios y Roles';
-require_once dirname(__DIR__) . '/parciales/encabezado.php';
+require_once dirname(__DIR__) . '/common/encabezado.php';
 ?>
 
 <div class="tarjeta">
@@ -198,7 +198,7 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
     </div>
 
     <!-- Paginación a la Derecha -->
-    <?php require dirname(__DIR__) . '/parciales/paginacion.php'; ?>
+    <?php require dirname(__DIR__) . '/common/paginacion.php'; ?>
 </div>
 
 <!-- ============================================================
@@ -485,5 +485,5 @@ function confirmarEstadoUsuario(id, correo, estadoActual) {
 </script>
 
 <?php 
-require_once dirname(__DIR__) . '/parciales/pie.php'; 
+require_once dirname(__DIR__) . '/common/pie.php'; 
 ?>

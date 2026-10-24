@@ -4,10 +4,10 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
-require_once dirname(__DIR__, 2) . '/src/Nucleo/GuardiaSesion.php';
-require_once dirname(__DIR__, 2) . '/src/Nucleo/Ayudantes.php';
-require_once dirname(__DIR__, 2) . '/src/Nucleo/Conexion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
+require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
+require_once dirname(__DIR__, 2) . '/src/core/Conexion.php';
 
 use App\Nucleo\GuardiaSesion;
 use App\Nucleo\Ayudantes;
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errorLogin = 'Por favor ingrese su usuario o correo y contraseña.';
     } else {
         // Verificar si existe el controlador de backend o resolver mediante PDO
-        $controladorRuta = dirname(__DIR__, 2) . '/src/Controladores/AutenticacionControlador.php';
+        $controladorRuta = dirname(__DIR__, 2) . '/src/controladores/AutenticacionControlador.php';
         if (file_exists($controladorRuta)) {
             require_once $controladorRuta;
         }
@@ -121,8 +121,8 @@ $titulo_pagina = 'Iniciar Sesión';
     <title>Iniciar Sesión - Clínica Vida Salud</title>
     <!-- Cero Emojis: Bootstrap Icons Oficial Vectorial -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?= URL_BASE ?>/publico/css/tema.css">
-    <link rel="stylesheet" href="<?= URL_BASE ?>/publico/css/estilos.css">
+    <link rel="stylesheet" href="<?= URL_BASE ?>/public/css/tema.css">
+    <link rel="stylesheet" href="<?= URL_BASE ?>/public/css/estilos.css">
 </head>
 <body style="background-color: var(--color-fondo-secundario);">
 
@@ -136,7 +136,7 @@ $titulo_pagina = 'Iniciar Sesión';
             <p class="login-subtitulo">Sistema Web de Gestión de Citas Médicas</p>
         </div>
 
-        <?php require_once dirname(__DIR__) . '/parciales/alerta.php'; ?>
+        <?php require_once dirname(__DIR__) . '/common/alerta.php'; ?>
 
         <?php if ($errorLogin): ?>
             <div class="alerta alerta-peligro">
@@ -184,6 +184,6 @@ $titulo_pagina = 'Iniciar Sesión';
     </div>
 </div>
 
-<script src="<?= URL_BASE ?>/publico/js/aplicacion.js"></script>
+<script src="<?= URL_BASE ?>/public/js/aplicacion.js"></script>
 </body>
 </html>

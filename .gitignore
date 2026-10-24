@@ -1,0 +1,30 @@
+# Archivos de bloqueo de LibreOffice / MS Office
+.~lock.*
+~$*
+
+# Logs y almacenamiento temporal de la aplicación
+almacenamiento/logs/*.log
+*.log
+
+# Archivos del Sistema Operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Entornos y Editores de Código
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos temporales y de respaldo
+*.tmp
+*.bak
+*.swp
+*~
+
+# Directorio de agentes y tareas de entorno
+.agents/
+AGENTS_CITAS.md
+.gemini/
+examen_texto.txt

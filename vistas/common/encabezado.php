@@ -5,7 +5,7 @@
  */
 
 if (!defined('RUTA_RAIZ')) {
-    require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+    require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 }
 if (!defined('URL_BASE')) {
     define('URL_BASE', '/citas_medicas');
@@ -19,8 +19,11 @@ if (!defined('URL_BASE')) {
     <title><?= htmlspecialchars($titulo_pagina ?? 'Clínica Vida Salud') ?> - Sistemas 1</title>
     <!-- Cero Emojis: Bootstrap Icons Oficial Vectorial -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?= URL_BASE ?>/publico/css/tema.css">
-    <link rel="stylesheet" href="<?= URL_BASE ?>/publico/css/estilos.css">
+    <link rel="stylesheet" href="<?= URL_BASE ?>/public/css/tema.css">
+    <link rel="stylesheet" href="<?= URL_BASE ?>/public/css/estilos.css">
+    <script>
+        window.URL_BASE = '<?= defined('URL_BASE') ? URL_BASE : '' ?>';
+    </script>
 </head>
 <body>
 <?php if (!empty($_SESSION['autenticado'])): ?>

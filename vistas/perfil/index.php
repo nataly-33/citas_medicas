@@ -4,7 +4,7 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
 require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
 require_once dirname(__DIR__, 2) . '/src/core/Conexion.php';
@@ -130,7 +130,7 @@ if ($paciente) {
 
 $titulo_pagina = 'Mi Perfil y Ficha Médica';
 $titulo_seccion = 'Mi Perfil y Ficha Médica';
-require_once dirname(__DIR__) . '/parciales/encabezado.php';
+require_once dirname(__DIR__) . '/common/encabezado.php';
 ?>
 
 <div class="perfil-contenedor">
@@ -390,7 +390,7 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
 </div>
 
 <?php 
-require_once dirname(__DIR__) . '/parciales/pie.php'; 
+require_once dirname(__DIR__) . '/common/pie.php'; 
 ?>
 
 <script>

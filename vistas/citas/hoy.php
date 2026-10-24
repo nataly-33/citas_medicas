@@ -4,7 +4,7 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
 require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
 require_once dirname(__DIR__, 2) . '/src/controladores/CitaControlador.php';
@@ -165,7 +165,7 @@ foreach ($citasDelDia as $c) {
 $titulo_pagina = 'Tablero Diario de Citas';
 $titulo_seccion = 'Tablero Diario de Citas';
 $script_modulo = 'citas.js';
-require_once dirname(__DIR__) . '/parciales/encabezado.php';
+require_once dirname(__DIR__) . '/common/encabezado.php';
 ?>
 
 <!-- Barra Superior con Enlace a Listado General -->
@@ -421,12 +421,14 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
                             <button type="button" class="btn btn-sm btn-secundario" onclick="verDetalleCita(<?= $c['id'] ?>)">
                                 <i class="bi bi-file-medical"></i> Notas
                             </button>
-                            <button type="button" class="btn btn-sm btn-secundario" style="color: #0284C7; padding: 0.25rem 0.4rem;" title="Ver Ficha Médica" onclick="abrirFichaMedica(<?= $c['id_paciente'] ?>)">
-                                <i class="bi bi-file-earmark-medical"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm btn-secundario" style="color: #6366F1; padding: 0.25rem 0.4rem;" title="Ver Historial Clínico" onclick="abrirHistorialPaciente(<?= $c['id_paciente'] ?>, '<?= htmlspecialchars(addslashes($c['nombre_paciente'])) ?>')">
-                                <i class="bi bi-clock-history"></i>
-                            </button>
+                            <?php if ($rolUsuario === 'Medico' || $rolUsuario === 'Administrador'): ?>
+                                <button type="button" class="btn btn-sm btn-secundario" style="color: #0284C7; padding: 0.25rem 0.4rem;" title="Ver Ficha Médica" onclick="abrirFichaMedica(<?= $c['id_paciente'] ?>)">
+                                    <i class="bi bi-file-earmark-medical"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-secundario" style="color: #6366F1; padding: 0.25rem 0.4rem;" title="Ver Historial Clínico" onclick="abrirHistorialPaciente(<?= $c['id_paciente'] ?>, '<?= htmlspecialchars(addslashes($c['nombre_paciente'])) ?>')">
+                                    <i class="bi bi-clock-history"></i>
+                                </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -493,7 +495,7 @@ require_once __DIR__ . '/modal_atender.php';
 require_once __DIR__ . '/modal_detalle.php';
 require_once dirname(__DIR__) . '/pacientes/modal_ficha_clinica.php';
 require_once dirname(__DIR__) . '/pacientes/modal_historial.php';
-require_once dirname(__DIR__) . '/parciales/pie.php';
+require_once dirname(__DIR__) . '/common/pie.php';
 ?>
 
 <script>
@@ -598,6 +600,7 @@ async function verDetalleCita(idCita) {
             `;
         }
 
+        <?php if ($rolUsuario === 'Medico' || $rolUsuario === 'Administrador'): ?>
         html += `
             <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--color-borde);">
                 <button type="button" class="btn btn-sm btn-secundario" style="color: #0284C7;" onclick="abrirFichaMedica(${d.id_paciente})">
@@ -608,6 +611,7 @@ async function verDetalleCita(idCita) {
                 </button>
             </div>
         `;
+        <?php endif; ?>
 
         contenedor.innerHTML = html;
     } else {

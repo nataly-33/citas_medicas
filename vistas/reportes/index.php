@@ -4,7 +4,7 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
 require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
 require_once dirname(__DIR__, 2) . '/src/core/Conexion.php';
@@ -121,7 +121,7 @@ $listaEspecialidades = $stmtEspecialidades->fetchAll();
 $titulo_pagina = 'Reportes Administrativos';
 $titulo_seccion = 'Reportes y Métricas Administrativas';
 $script_modulo = 'reportes.js';
-require_once dirname(__DIR__) . '/parciales/encabezado.php';
+require_once dirname(__DIR__) . '/common/encabezado.php';
 ?>
 
 <!-- Encabezado Visible Únicamente en Modo Impresión / PDF -->
@@ -512,11 +512,11 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
     </div>
 
     <!-- Paginación Compartida de 15 Filas a la Derecha -->
-    <?php require dirname(__DIR__) . '/parciales/paginacion.php'; ?>
+    <?php require dirname(__DIR__) . '/common/paginacion.php'; ?>
 </div>
 
 <?php
-require_once dirname(__DIR__) . '/parciales/pie.php';
+require_once dirname(__DIR__) . '/common/pie.php';
 ?>
 
 <script>

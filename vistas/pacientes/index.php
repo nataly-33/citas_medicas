@@ -4,7 +4,7 @@
  * Sistema Clínica Vida Salud - Sistemas de Información 1 (UAGRM)
  */
 
-require_once dirname(__DIR__, 2) . '/configuracion/aplicacion.php';
+require_once dirname(__DIR__, 2) . '/configuration/aplicacion.php';
 require_once dirname(__DIR__, 2) . '/src/core/GuardiaSesion.php';
 require_once dirname(__DIR__, 2) . '/src/core/Ayudantes.php';
 require_once dirname(__DIR__, 2) . '/src/core/Conexion.php';
@@ -28,6 +28,9 @@ $pacienteControlador = new PacienteControlador();
 
 // Petición AJAX: Consultar Ficha Médica Completa
 if (isset($_GET['accion']) && $_GET['accion'] === 'ficha_clinica') {
+    if ($rolUsuario !== 'Medico' && $rolUsuario !== 'Administrador') {
+        Ayudantes::responderJson(['exito' => false, 'mensaje' => 'Acceso denegado: Solo el personal médico puede consultar fichas médicas.'], 403);
+    }
     $idPaciente = (int)($_GET['id_paciente'] ?? 0);
     $pacienteDetalle = $pacienteControlador->buscarPorId($idPaciente);
     if ($pacienteDetalle) {
@@ -38,7 +41,10 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'ficha_clinica') {
 }
 
 // Petición AJAX: Consultar Historial de Citas (CU12)
-if (isset($_GET['accion']) && $_GET['accion'] === 'historial') {
+if (isset($_GET['accion']) && ($_GET['accion'] === 'historial' || $_GET['accion'] === 'historial_citas')) {
+    if ($rolUsuario !== 'Medico' && $rolUsuario !== 'Administrador') {
+        Ayudantes::responderJson(['exito' => false, 'mensaje' => 'Acceso denegado: Solo el personal médico puede consultar historiales clínicos.'], 403);
+    }
     $idPaciente = (int)($_GET['id_paciente'] ?? 0);
     try {
         $citas = $pacienteControlador->obtenerHistorialCitas($idPaciente);
@@ -87,7 +93,7 @@ $limite_registros = $datosPacientes['limite'];
 $titulo_pagina = 'Gestión de Pacientes';
 $titulo_seccion = 'Gestión de Pacientes';
 $script_modulo = 'pacientes.js';
-require_once dirname(__DIR__) . '/parciales/encabezado.php';
+require_once dirname(__DIR__) . '/common/encabezado.php';
 ?>
 
 <div class="tarjeta">
@@ -166,19 +172,21 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
                                 </td>
                                 <td class="texto-centro">
                                     <div class="acciones-fila" style="justify-content: center;">
-                                        <!-- Botón Ficha Médica Completa -->
-                                        <button type="button" class="btn-accion" style="color: #0284C7;" 
-                                                title="Ver Ficha Médica y Antecedentes" 
-                                                onclick="abrirFichaMedica(<?= $pac['id'] ?>)">
-                                            <i class="bi bi-file-earmark-medical"></i>
-                                        </button>
+                                        <?php if ($rolUsuario === 'Medico' || $rolUsuario === 'Administrador'): ?>
+                                            <!-- Botón Ficha Médica Completa (Solo Médico / Admin) -->
+                                            <button type="button" class="btn-accion" style="color: #0284C7;" 
+                                                    title="Ver Ficha Médica y Antecedentes" 
+                                                    onclick="abrirFichaMedica(<?= $pac['id'] ?>)">
+                                                <i class="bi bi-file-earmark-medical"></i>
+                                            </button>
 
-                                        <!-- Botón Historial de Citas -->
-                                        <button type="button" class="btn-accion btn-accion-historial" 
-                                                title="Ver Historial de Citas" 
-                                                onclick="abrirHistorialPaciente(<?= $pac['id'] ?>, '<?= htmlspecialchars(addslashes($pac['nombres'] . ' ' . $pac['apellidos'])) ?>')">
-                                            <i class="bi bi-clock-history"></i>
-                                        </button>
+                                            <!-- Botón Historial de Citas (Solo Médico / Admin) -->
+                                            <button type="button" class="btn-accion btn-accion-historial" 
+                                                    title="Ver Historial de Citas" 
+                                                    onclick="abrirHistorialPaciente(<?= $pac['id'] ?>, '<?= htmlspecialchars(addslashes($pac['nombres'] . ' ' . $pac['apellidos'])) ?>')">
+                                                <i class="bi bi-clock-history"></i>
+                                            </button>
+                                        <?php endif; ?>
 
                                         <?php if ($rolUsuario === 'Administrador' || $rolUsuario === 'Recepcionista'): ?>
                                             <!-- Botón Editar Paciente -->
@@ -206,7 +214,7 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
     </div>
 
     <!-- Paginación Compartida de 15 Filas a la Derecha -->
-    <?php require dirname(__DIR__) . '/parciales/paginacion.php'; ?>
+    <?php require dirname(__DIR__) . '/common/paginacion.php'; ?>
 </div>
 
 <!-- Inclusión de Modales del Módulo -->
@@ -214,7 +222,7 @@ require_once dirname(__DIR__) . '/parciales/encabezado.php';
 require_once __DIR__ . '/modal_formulario.php';
 require_once __DIR__ . '/modal_historial.php';
 require_once __DIR__ . '/modal_ficha_clinica.php';
-require_once dirname(__DIR__) . '/parciales/pie.php';
+require_once dirname(__DIR__) . '/common/pie.php';
 ?>
 
 <script>
@@ -228,7 +236,8 @@ async function abrirFichaMedica(idPaciente) {
     }
     abrirModal('modalFichaClinica');
 
-    const res = await peticionAjax('index.php?accion=ficha_clinica&id_paciente=' + idPaciente, 'GET');
+    const rutaBase = (typeof obtenerRutaBase === 'function') ? obtenerRutaBase() : '';
+    const res = await peticionAjax(rutaBase + '/vistas/pacientes/index.php?accion=ficha_clinica&id_paciente=' + idPaciente, 'GET');
 
     if (contenedor && res && res.exito && res.paciente) {
         const p = res.paciente;
